@@ -1,32 +1,34 @@
 function renderBooks() {
-    const booksWrapper = document.querySelector('.books');
-    
-    const books = getBooks();
-    console.log(books)
-    booksWrapper.innerHTML =
-    `<div class="book">
-    <figure class="book__img--wrapper">
-        <img class="book__img" src="${books[0].url}" alt="">
-    </figure>
-    <div class="book__title">
-        ${books[0].title}
-    </div>
-    <div class="book__ratings">
+  const booksWrapper = document.querySelector(".books");
+  const books = getBooks();
+  const booksHtml = books.map((book) => {
+    return `<div class="book">
+        <figure class="book__img--wrapper">
+        <img class="book__img" src="${book.url}" alt="">
+        </figure>
+        <div class="book__title">
+        ${book.title}
+        </div>
+        <div class="book__ratings">
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
         <i class="fas fa-star"></i>
         <i class="fas fa-star-half-alt"></i>
-    </div>
-    <div class="book__price">
-        <span class="book__price--normal">$59.95</span> $14.95
-    </div>
-</div>`
+        </div>
+        <div class="book__price">
+        <span class="book__price--normal">${book.originalPrice}</span> ${book.salePrice}
+        </div>
+        </div>`;
+  }).join('');
+
+  booksWrapper.innerHTML = booksHtml;
+  console.log(booksHtml)
 }
 
 setTimeout(() => {
-      renderBooks();
-    });
+  renderBooks();
+});
 
 //FAKE CODE
 
@@ -40,7 +42,7 @@ setTimeout(() => {
 //   if (!books) {
 //     books = await getBooks();
 //   }
-  
+
 //   booksWrapper.classList.remove('books__loading')
 
 //   if (filter === "LOW_TO_HIGH") {
@@ -108,10 +110,12 @@ setTimeout(() => {
 // });
 
 // // FAKE DATA
+
 function getBooks() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
+  return [
+//   new Promise((resolve) => {
+//     setTimeout(() => {
+//       resolve([
         {
           id: 1,
           title: "Crack the Coding Interview",
@@ -200,7 +204,8 @@ function getBooks() {
           salePrice: null,
           rating: 4.5,
         },
-      ]);
-    }, 1000);
-  });
-}
+      ]}
+//       );
+//     }, 1000);
+//   });
+// }
